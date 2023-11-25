@@ -37,7 +37,7 @@ export default async function Dashboard({
         </div>
         <ButtonLink href="/events/create">Create Event</ButtonLink>
       </div>
-      <div className="flex flex-col gap-6 mt-6 md:flex-row">
+      <div className="mt-4 grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {events?.map((event) => (
           <EventTile key={event.id} event={event} />
         ))}
