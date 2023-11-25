@@ -1,4 +1,5 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
+const colors = require('tailwindcss/colors');
 
 const config: Config = {
   content: [
@@ -8,10 +9,13 @@ const config: Config = {
   ],
   theme: {
     colors: {
+      ...colors,
       'foreground-color': '#fff',
-      'primary-orange': '#FF5733',
-    }
+      'background-color': '#000',
+      'background-color-lighter': '#0A0A0A',
+      'background-color-lightest': '#1A1A1A',
+    },
   },
   plugins: [],
-}
-export default config
+};
+export default config;

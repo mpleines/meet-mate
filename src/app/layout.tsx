@@ -1,12 +1,10 @@
 import Navigation from "@/components/Navigation";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Database } from "../../types/supabase";
 import { cookies } from "next/headers";
-
-const inter = Inter({ subsets: ["latin"] });
+import { GeistSans, GeistMono } from 'geist/font'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,9 +21,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={GeistSans.className}>
         <Navigation session={session}/>
-        {children}
+        <div className="mx-auto max-w-screen-xl min-h-screen px-8">
+          {children}
+        </div>
       </body>
     </html>
   );

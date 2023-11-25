@@ -1,9 +1,13 @@
-"use client";
+'use client';
 
-import { Session, createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import Link from "next/link";
-import { Database } from "../../types/supabase";
-import { useRouter } from "next/navigation";
+import {
+  Session,
+  createClientComponentClient,
+} from '@supabase/auth-helpers-nextjs';
+import Link from 'next/link';
+import { Database } from '../../types/supabase';
+import { useRouter } from 'next/navigation';
+import Button from './Button';
 
 export default function Navigation({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
@@ -13,20 +17,15 @@ export default function Navigation({ session }: { session: Session | null }) {
     await supabase.auth.signOut();
     router.refresh();
   }
-  
+
   return (
-    <nav className="mx-auto max-w-screen-2xl px-8 py-4 flex justify-between align-middle">
+    <nav className="mx-auto max-w-screen-xl py-4 flex justify-between align-middle px-8">
       <div className="flex justify-center">
-        <Link href="/" className="text-xl font-semibold text-primary-orange">
+        <Link href="/" className="text-xl font-semibold">
           MeetMate.
         </Link>
       </div>
-      {session?.user != null && (
-        <button
-          className="px-4 py-2 text-primary-orange font-semibold rounded-md hover:bg-opacity-90 hover:outline"
-          onClick={signOut}
-        >Sign Out</button>
-      )}
+      {session?.user != null && <Button onClick={signOut}>Sign Out</Button>}
     </nav>
   );
 }
