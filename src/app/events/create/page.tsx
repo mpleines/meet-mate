@@ -3,6 +3,7 @@ import { create } from '@/actions/events';
 import { redirect } from 'next/navigation';
 import { Form, FormField } from '@/components/Form';
 import Input from '@/components/Input';
+import WeekdayPicker from '@/components/WeekdayPicker';
 
 export default async function Page({ params }: { params: { id: string } }) {
   async function handleCreate(formData: FormData) {
@@ -33,6 +34,8 @@ export default async function Page({ params }: { params: { id: string } }) {
               placeholder="Enter Description"
             />
           </FormField>
+          <label htmlFor="weekdays">Available on</label>
+          <WeekdayPicker />
           <FormField label="Duration (min.)" name="duration">
             <Input
               type="number"
