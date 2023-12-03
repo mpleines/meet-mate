@@ -10,13 +10,13 @@ const validationSchema = z.object({
 });
 
 export async function create(formData: FormData) {
-  const newEvent = validationSchema.parse({
-    title: formData.get('title'),
-    description: formData.get('description'),
-    duration: Number(formData.get('duration')),
-  });
-
   try {
+    const newEvent = validationSchema.parse({
+      title: formData.get('title'),
+      description: formData.get('description'),
+      duration: Number(formData.get('duration')),
+    });
+
     await supabase.from('events').insert(newEvent);
 
     return {
