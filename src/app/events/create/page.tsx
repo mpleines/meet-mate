@@ -24,6 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               name="title"
               type="text"
               placeholder="Enter Title"
+              required
             />
           </FormField>
           <FormField label="Description" name="description">
@@ -32,16 +33,18 @@ export default async function Page({ params }: { params: { id: string } }) {
               name="description"
               type="text"
               placeholder="Enter Description"
+              required
             />
           </FormField>
           <label htmlFor="weekdays">Available on</label>
-          <WeekdayPicker />
+          <WeekdayPicker required />
           <FormField label="Duration (min.)" name="duration">
             <Input
               type="number"
               id="duration"
               name="duration"
               placeholder="duration (minutes)"
+              required
             />
           </FormField>
           <div className="mt-4">

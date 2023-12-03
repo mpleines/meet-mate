@@ -10,14 +10,22 @@ export const WEEK_DAYS = [
   'Sunday',
 ];
 
-interface WeekdayPickerProps {}
+interface WeekdayPickerProps {
+  required?: boolean;
+}
 
-const WeekdayPicker: FunctionComponent<WeekdayPickerProps> = () => {
+const WeekdayPicker: FunctionComponent<WeekdayPickerProps> = ({ required }) => {
   return (
     <div className="flex gap-2">
       {WEEK_DAYS.map((day) => (
         <div key={day}>
-          <input id={day} type="checkbox" name={day} className="hidden peer" />
+          <input
+            id={day}
+            type="checkbox"
+            name={day}
+            className="hidden peer"
+            required={required}
+          />
           <label
             htmlFor={day}
             className="cursor-pointer text-xs flex items-center justify-center w-6 h-6 rounded-full bg-background-color-lightest hover:bg-purple-500 peer-checked:bg-purple-500"
