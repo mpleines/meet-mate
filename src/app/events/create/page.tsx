@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import { Form, FormField } from '@/components/Form';
 import Input from '@/components/Input';
 import WeekdayPicker from '@/components/WeekdayPicker';
+import Select from '@/components/Select';
+import TimeInput from '@/components/AvailableHourPicker';
 
 export default async function Page({ params }: { params: { id: string } }) {
   async function handleCreate(formData: FormData) {
@@ -16,7 +18,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <div>
       <h1 className="text-3xl">Create new Event</h1>
-      <div className="w-2/3 mt-4">
+      <div className="xl:w-2/3 mt-4">
         <Form action={handleCreate}>
           <FormField label="Title" name="title">
             <Input
@@ -37,14 +39,23 @@ export default async function Page({ params }: { params: { id: string } }) {
             />
           </FormField>
           <label htmlFor="weekdays">Available on</label>
-          <WeekdayPicker required />
+          <WeekdayPicker required id="weekdays" name="weekdays" />
+          <label htmlFor="availableFrom">Available Hours</label>
+          <div className="flex flex-row gap-2 items-center">
+            <TimeInput id="availableFrom" name="availableFrom" required />
+            <div>-</div>
+            <TimeInput id="availableUntil" name="availableUntil" required />
+          </div>
           <FormField label="Duration (min.)" name="duration">
-            <Input
-              type="number"
+            <Select
               id="duration"
               name="duration"
-              placeholder="duration (minutes)"
-              required
+              options={[
+                { label: '15 min.', value: 15 },
+                { label: '30 min.', value: 30 },
+                { label: '45 min.', value: 45 },
+                { label: '60 min.', value: 60 },
+              ]}
             />
           </FormField>
           <div className="mt-4">

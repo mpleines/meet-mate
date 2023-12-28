@@ -11,7 +11,7 @@ type EventTileProps = {
 
 export default function EventTile({ event }: EventTileProps) {
   return (
-    <div className="rounded-md px-6 py-4 bg-background-color-lighter outline outline-1 outline-background-color-lightest hover:outline hover:outline-1 hover:outline-background-color-lightest hover:bg-background-color-lightest">
+    <div className="rounded-md px-6 py-4 bg-background outline outline-1 outline-muted hover:outline hover:outline-1 hover:bg-muted">
       <Link className="" href={`/events/${event.id}`}>
         <h2 className="text-l font-semibold">{event.title}</h2>
         <div className="mt-6">

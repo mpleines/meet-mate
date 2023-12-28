@@ -14,7 +14,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
   return (
     <button
       className={
-        'px-4 py-2 text-sm bg-white text-background-color rounded-md hover:bg-background-color-lightest hover:text-white inline'
+        'px-4 py-2 text-sm bg-white text-background rounded-md hover:bg-muted hover:text-white inline'
       }
       onClick={onClick}
       type={type}

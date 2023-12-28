@@ -9,7 +9,7 @@ export default function ButtonLink({
 }: LinkProps & { children: ReactNode }) {
   return (
     <Link
-      className="px-4 py-2 text-sm bg-white text-background-color rounded-md hover:bg-background-color-lightest hover:text-white"
+      className="px-4 py-2 text-sm bg-white text-background rounded-md hover:bg-muted hover:text-white"
       {...otherProps}
     >
       {children}

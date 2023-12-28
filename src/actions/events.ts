@@ -1,6 +1,6 @@
 'use server';
 
-import { WEEK_DAYS } from '@/components/WeekdayPicker';
+import { WEEK_DAYS } from '@/constants';
 import { supabase } from '@/supabaseClient';
 import { z } from 'zod';
 
@@ -9,6 +9,8 @@ const validationSchema = z.object({
   description: z.string().min(1),
   duration: z.number().min(1),
   weekdays: z.string().array(),
+  availableFrom: z.string().min(1),
+  availableUntil: z.string().min(1),
 });
 
 export async function create(formData: FormData) {
@@ -22,6 +24,8 @@ export async function create(formData: FormData) {
       description: formData.get('description'),
       duration: Number(formData.get('duration')),
       weekdays: availableWeekdays,
+      availableFrom: formData.get('availableFrom'),
+      availableUntil: formData.get('availableUntil'),
     });
 
     await supabase.from('events').insert(newEvent);

@@ -10,10 +10,9 @@ const config: Config = {
   theme: {
     colors: {
       ...colors,
-      'foreground-color': '#fff',
-      'background-color': '#000',
-      'background-color-lighter': '#0A0A0A',
-      'background-color-lightest': '#1A1A1A',
+      foreground: '#fff',
+      background: '#09090b',
+      muted: '#27272A',
     },
   },
   plugins: [],
