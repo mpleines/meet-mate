@@ -11,6 +11,8 @@ const validationSchema = z.object({
   weekdays: z.string().array(),
   availableFrom: z.string().min(1),
   availableUntil: z.string().min(1),
+  meetingType: z.string().min(1),
+  videoLink: z.string(),
 });
 
 export async function create(formData: FormData) {
@@ -26,6 +28,8 @@ export async function create(formData: FormData) {
       weekdays: availableWeekdays,
       availableFrom: formData.get('availableFrom'),
       availableUntil: formData.get('availableUntil'),
+      meetingType: formData.get('meetingType'),
+      videoLink: formData.get('videoLink'),
     });
 
     await supabase.from('events').insert(newEvent);

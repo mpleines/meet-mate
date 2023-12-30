@@ -1,20 +1,10 @@
 'use client';
-import ReactSelect, { Options } from 'react-select';
+import ReactSelect, { Props } from 'react-select';
 
-interface SelectProps<T> {
-  id: string;
-  name: string;
-  options: Options<T>;
-  required?: boolean;
-}
-
-const Select = <T,>(props: SelectProps<T>) => {
+const Select = (props: Props) => {
   return (
     <ReactSelect
-      options={props.options}
-      id={props.id}
-      name={props.name}
-      required={props.required}
+      {...props}
       classNames={{
         container: () => 'border rounded-md border-0',
         valueContainer: () => 'py-2 px-4 text-md p-0 text-white bg-background ',

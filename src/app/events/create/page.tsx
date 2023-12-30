@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Button from '@/components/Button';
 import { create } from '@/actions/events';
 import { redirect } from 'next/navigation';
@@ -7,10 +10,20 @@ import WeekdayPicker from '@/components/WeekdayPicker';
 import Select from '@/components/Select';
 import TimeInput from '@/components/AvailableHourPicker';
 
-export default async function Page({ params }: { params: { id: string } }) {
-  async function handleCreate(formData: FormData) {
-    'use server';
+type MeetingType = 'video' | 'inPerson';
 
+const MEETING_TYPE_OPTIONS: { label: string; value: MeetingType }[] = [
+  { label: 'Video Conference', value: 'video' },
+  { label: 'In Person', value: 'inPerson' },
+];
+
+export default function Page({ params }: { params: { id: string } }) {
+  const [meetingType, setMeetingType] = useState<{
+    label: string;
+    value: MeetingType;
+  }>(MEETING_TYPE_OPTIONS.find((option) => option.value === 'video')!);
+
+  async function handleCreate(formData: FormData) {
     await create(formData);
     redirect('/dashboard');
   }
@@ -50,6 +63,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <Select
               id="duration"
               name="duration"
+              defaultValue={{ label: '15 min.', value: 15 }}
               options={[
                 { label: '15 min.', value: 15 },
                 { label: '30 min.', value: 30 },
@@ -58,6 +72,34 @@ export default async function Page({ params }: { params: { id: string } }) {
               ]}
             />
           </FormField>
+          <FormField label="Meeting Type" name="meetingType">
+            <Select
+              id="meetinType"
+              name="meetingType"
+              isMulti={false}
+              // FIXME: typigns
+              onChange={(option: any) => {
+                setMeetingType(option);
+              }}
+              value={meetingType}
+              defaultValue={{ label: 'Video Conference', value: 'video' }}
+              options={[
+                { label: 'Video Conference', value: 'video' },
+                { label: 'In Person', value: 'inPerson' },
+              ]}
+            />
+          </FormField>
+          {meetingType.value === 'video' && (
+            <FormField label="Video Conference Link" name="videoLink">
+              <Input
+                id="videoLink"
+                name="videoLink"
+                type="text"
+                required
+                placeholder="https://teams.microsoft.com/l/meetup-join/..."
+              />
+            </FormField>
+          )}
           <div className="mt-4">
             <Button type="submit">Create Event</Button>
           </div>
