@@ -1,20 +1,39 @@
 'use client';
-import ReactSelect, { Props } from 'react-select';
 
-const Select = (props: Props) => {
+import {
+  Select as ShadcnSelect,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { ReactNode } from 'react';
+
+type Props = {
+  name: string;
+  options: { label: ReactNode; value: string }[];
+  placeholder?: string;
+  onChange?: (value: string) => void;
+  required?: boolean;
+};
+
+const Select = ({ name, placeholder, options, onChange, required }: Props) => {
   return (
-    <ReactSelect
-      {...props}
-      classNames={{
-        container: () => 'border rounded-md border-0',
-        valueContainer: () => 'py-2 px-4 text-md p-0 text-white bg-background ',
-        dropdownIndicator: () => 'bg-background',
-        menuList: () =>
-          'border rounded-md text-md p-0 text-white bg-background ',
-        option: () =>
-          'bg-background hover:text-black hover:bg-white active:bg-white active:text-black focus:bg-white focus:text-black',
-      }}
-    />
+    <ShadcnSelect name={name} onValueChange={onChange} required={required}>
+      <SelectTrigger className="w-[280px]">
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {options.map(({ value, label }) => (
+            <SelectItem key={value} value={value}>
+              {label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </ShadcnSelect>
   );
 };
 

@@ -1,7 +1,13 @@
-'use client';
-
 import Link from 'next/link';
 import { Database } from '../../types/supabase';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from './ui/card';
 
 type Event = Database['public']['Tables']['events']['Row'];
 
@@ -11,14 +17,19 @@ type EventTileProps = {
 
 export default function EventTile({ event }: EventTileProps) {
   return (
-    <div className="rounded-md px-6 py-4 bg-background outline outline-1 outline-muted hover:outline hover:outline-1 hover:bg-muted">
-      <Link className="" href={`/events/${event.id}`}>
-        <h2 className="text-l font-semibold">{event.title}</h2>
-        <div className="mt-6">
-          <p className="text-sm">{event.description}</p>
-          <p className="text-sm text-gray-400">{event.duration} mins</p>
-        </div>
-      </Link>
-    </div>
+    <Link href={`/events/${event.id}`}>
+      <Card>
+        <CardHeader>
+          <CardTitle>{event.title}</CardTitle>
+          <CardDescription>{event.description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>Available days: {event.weekdays?.join(', ')}</p>
+        </CardContent>
+        <CardFooter>
+          <p>{event.duration} mins</p>
+        </CardFooter>
+      </Card>
+    </Link>
   );
 }

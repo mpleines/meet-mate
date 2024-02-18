@@ -7,7 +7,17 @@ import {
 import Link from 'next/link';
 import { Database } from '../../types/supabase';
 import { useRouter } from 'next/navigation';
-import Button from './Button';
+import { Button } from './ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
+import { ThemeToggle } from './ThemeToggle';
 
 export default function Navigation({ session }: { session: Session | null }) {
   const supabase = createClientComponentClient<Database>();
@@ -25,7 +35,27 @@ export default function Navigation({ session }: { session: Session | null }) {
           MeetMate.
         </Link>
       </div>
-      {session?.user != null && <Button onClick={signOut}>Sign Out</Button>}
+      <div className="flex gap-2">
+        <ThemeToggle />
+        {session?.user != null && (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarFallback>MP</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Button size="sm" variant="outline" onClick={signOut}>
+                  Sign Out
+                </Button>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+      </div>
     </nav>
   );
 }

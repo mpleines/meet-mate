@@ -1,4 +1,5 @@
 import React, { FunctionComponent, ReactNode } from 'react';
+import { Label } from './ui/label';
 
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
   children: ReactNode;
@@ -6,7 +7,7 @@ interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {
 
 const Form: FunctionComponent<FormProps> = ({ children, ...props }) => {
   return (
-    <form className="px-4 py-2 flex flex-col gap-2" {...props}>
+    <form className="flex flex-col gap-2" {...props}>
       {children}
     </form>
   );
@@ -25,7 +26,7 @@ const FormField: FunctionComponent<FormFieldProps> = ({
 }) => {
   return (
     <>
-      <label htmlFor={name}>{label}</label>
+      <Label htmlFor={name}>{label}</Label>
       {React.cloneElement(children as React.ReactElement<any>, {
         id: name,
         name: name,
