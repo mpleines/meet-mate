@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { Search } from '@geist-ui/icons';
+import { Input } from './ui/input';
 
 type SearchbarProps = {};
 
@@ -23,14 +23,11 @@ export default function Searchbar({}: SearchbarProps) {
   };
 
   return (
-    <div className="border border-muted rounded-md py-2 px-4 flex items-center bg-background focus-within:border-white">
-      <Search size={16} />
-      <input
-        type="search"
-        className="w-full text-sm ml-1 p-0 border-none text-white bg-background focus:border-none focus:outline-none"
-        onChange={(e) => handleChange(e.target.value)}
-        defaultValue={searchParams.get('query')?.toString()}
-      />
-    </div>
+    <Input
+      type="search"
+      placeholder="Search your events"
+      onChange={(e) => handleChange(e.target.value)}
+      defaultValue={searchParams.get('query')?.toString()}
+    />
   );
 }

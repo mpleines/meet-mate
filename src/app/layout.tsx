@@ -5,6 +5,8 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '../../types/supabase';
 import { cookies } from 'next/headers';
 import { GeistSans, GeistMono } from 'geist/font';
+import { Toaster } from 'sonner';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,10 +26,18 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <Navigation session={session} />
-        <div className="mx-auto max-w-screen-xl min-h-screen px-8">
-          {children}
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navigation session={session} />
+          <div className="mx-auto max-w-screen-xl min-h-screen px-8">
+            {children}
+          </div>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

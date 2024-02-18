@@ -2,6 +2,7 @@
 
 import { WEEK_DAYS } from '@/constants';
 import { supabase } from '@/supabaseClient';
+import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
 const validationSchema = z.object({
@@ -12,12 +13,12 @@ const validationSchema = z.object({
   availableFrom: z.string().min(1),
   availableUntil: z.string().min(1),
   meetingType: z.string().min(1),
-  videoLink: z.string(),
+  videoLink: z.nullable(z.string()),
 });
 
-export async function create(formData: FormData) {
+export async function createEvent(formData: FormData, userId: string) {
   const availableWeekdays = WEEK_DAYS.filter((weekday) =>
-    formData.get(weekday)
+    formData.get(weekday),
   );
 
   try {
@@ -32,15 +33,28 @@ export async function create(formData: FormData) {
       videoLink: formData.get('videoLink'),
     });
 
-    await supabase.from('events').insert(newEvent);
+    const response = await supabase
+      .from('events')
+      .insert({ ...newEvent, userId });
 
-    return {
-      message: `Added Event: ${newEvent.title}`,
-    };
+    if (response.error) {
+      throw response.error;
+    }
   } catch (err) {
-    console.log(err);
-    return {
-      message: 'Failed to add event',
-    };
+    console.log('failed to add event: ', err);
   }
+
+  redirect('/dashboard');
+}
+
+export async function deleteEvent(id: number) {
+  console.log(id);
+  try {
+    const response = await supabase.from('events').delete().eq('id', id);
+    console.log(response);
+  } catch (error) {
+    console.error('Failed to delete event: ', error);
+  }
+
+  redirect('/dashboard');
 }

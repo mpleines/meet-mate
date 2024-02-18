@@ -37,10 +37,10 @@ const AvailableHourPicker: FunctionComponent<AvailableHourPickerProps> = ({
 }) => {
   return (
     <Select
-      id={id}
       name={name}
-      options={generateTimeSlots()}
       required={required}
+      options={generateTimeSlots()}
+      placeholder="Pick a Time"
     />
   );
 };
